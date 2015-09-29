@@ -1,0 +1,20 @@
+<div ng-controller="KnowledgeController" class="container">
+    <div class="form-group col-md-4 col-md-offset-4">
+        <label for="areaInputName">Area</label>
+        <input type="text" class="form-control" id="areaInputName"
+               ng-model="area.name"  placeholder="Enter an area's name">
+        <button class="btn btn-default" ng-click="addArea()"
+                ng-show="area.name.length > 0 && area.name != ' ' && validNewArea">Add Area!</button>
+    </div>
+    <div class="col-md-4 col-md-offset-1">
+        <p><b>Knowledge Areas</b></p>
+        <table class="table table-striped">
+            <tbody>
+                <tr ng-repeat="area in areas | orderBy: 'name'">
+                    <td>{{area.name}}</td>
+                    <td>x</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

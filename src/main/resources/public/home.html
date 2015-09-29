@@ -1,0 +1,16 @@
+<div class="container">
+    <img src="./images/logoLooky.png" style="margin-top:18px;"/>
+    <div class="text-center" style="margin-top:6%;margin-left:35%;margin-right:35%;background-color:white;padding: 20px 40px 40px 40px;font-family:verdana;">
+        <p class="text-left" style="font-size:30px;">Entrar</p>
+
+        <fb:login-button size="xlarge" style="margin-top:25px;font-size:10px;" scope="public_profile,email"  onlogin="checkLoginState();">
+            Login com Facebook
+        </fb:login-button>
+
+        <div id="customBtn" class="customGPlusSignIn" ng-click="render()">
+            <span class="icon fa fa-google-plus fa-2x"></span>
+            <span class="buttonText">Login com Google</span>
+        </div>
+
+    </div>
+</div>

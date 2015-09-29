@@ -1,0 +1,40 @@
+<div class="modal-totally" id="modal">
+    <div class="modal-header">
+        <h3>Interações pendentes <span class="label label-primary"></span></h3>
+    </div>
+    <div class="modal-body col-lg-12">
+        <p>Seus pedidos de ajuda</p>
+        <table ng-repeat="interaction in interactionsPendingUserRequester">
+            <tr>
+                <td class="col-lg-5">
+                    {{interaction.requestHelp.helper.name}}
+                </td>
+                <td class="col-lg-8">
+                    {{interaction.requestHelp.text}}
+                </td>
+                <td class="col-lg-2 float-right" style="cursor:pointer" ng-click="openAvaliation(interaction, $index, 'pending')" aria-hidden="true">
+                    <img src="./images/x.png">
+                </td>
+            </tr>
+        </table>
+        <hr />
+        <p>Solicitações de ajuda</p>
+        <table ng-repeat="interaction in interactionsPendingUserHelper">
+            <tr>
+                <td class="col-lg-12">
+                    {{interaction.requestHelp.requester.name}}
+                </td>
+                <td class="col-lg-12">
+                    {{interaction.requestHelp.text}}
+                </td>
+                <td class="col-lg-2 float-right" style="cursor:pointer" ng-click="openAvaliation(interaction, $index, 'pending')" aria-hidden="true">
+                    <img src="./images/x.png">
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">Fechar!</button>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+<div class="modal-totally" id="modal">
+
+    <div class="modal-header">
+        <h3>Editar pedido global</h3>
+    </div>
+
+    <form name="userForm" ng-submit="sendAskGlobal()" novalidate>
+          <div  class="modal-body form-group">
+            <div class="form-group" ng-class="{ 'has-error' : userForm.title.$invalid && !userForm.title.$pristine }">
+                <label>Título:</label>
+                <input id="title" type="text" name="title" class="form-control" ng-model="user.title" required>
+                <p ng-show="userForm.title.$invalid && !userForm.title.$pristine" class="help-block">Título obrigatório</p>
+            </div>
+
+            <label>Mensagem:</label>
+            <input class="form-control" type="text" id="message" value="{{askGlobal.request}}"/>
+          </div>
+
+          <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Confirmar</button>
+                <a class="btn btn-warning" ng-click="cancel()">Cancelar</a>
+          </div>
+    </form>
+</div>

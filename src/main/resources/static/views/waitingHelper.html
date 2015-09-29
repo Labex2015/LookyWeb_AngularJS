@@ -1,0 +1,22 @@
+<div class="navbar navbar-default col-lg-12" style="padding: 10px 0 10px 0;">
+    <div class="col-lg-6" ng-repeat="userWaitingHelper in waitingHelper">
+        <div ng-controller="searchController" class="card" style="background-color:#ffffff;border-radius: 4px;" z-default='20' z-hover='50'>
+            <table>
+                <tr>
+                    <td>
+                        <img ng-show="!user.picture" src="./images/default-user-icon-profile.png" alt="" class="img-circle col-lg-12" style="padding: 0 0 0 0;">
+                        <img ng-show="user.picture" src="./images/{{user.picture}}" alt="" class="img-circle col-lg-12" style="padding: 0 0 0 0;">
+                    </td>
+                    <td class="col-lg-8">
+                        <p style="font-size:12px;">{{userWaitingHelper.idRequestHelp}}</p>
+                        <p style="font-size:12px;">{{userWaitingHelper.description}}</p>
+                    </td>
+                    <td class="col-lg-2">
+                        <a ng-click="acceptHelp(userWaitingHelper)"><img src="../images/ajudar.png" style="cursor:pointer;"/></a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</div>

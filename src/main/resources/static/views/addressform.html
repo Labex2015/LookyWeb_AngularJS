@@ -1,0 +1,42 @@
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Endereço: {{address.streetAddress}}</h4>
+        </div>
+        <div class="modal-body">
+            <form name="addressForm" class="form-horizontal" role="form" novalidate>
+                <div class="form-group">
+                    <label for="address" class="col-sm-2 control-label">Endereço:</label>
+                    <div  class="col-sm-9">
+                        <input  id="address" name="address" class="form-control" type="text" ng-model="address.streetAddress" required/>
+                        <span class="error" ng-show="addressForm.address.$error.required">*</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="uf" class="col-sm-2 control-label">UF:</label>
+                    <div  class="col-sm-9">
+                        <select id="uf" name="uf" ng-model="address.state" ng-options="uf as uf for uf in ufs" required>
+                            <option value="">-- Select --</option>
+                        </select>
+                        <span class="error" ng-show="addressForm.uf.$error.required">*</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="district" class="col-sm-2 control-label">Bairro:</label>
+                    <div  class="col-sm-9">
+                        <input id="district" class="form-control" type="text" ng-model="address.district" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="zipCode" class="col-sm-2 control-label">Cep:</label>
+                    <div  class="col-sm-9">
+                        <input id="zipCode" name="zipCode" class="form-control" maxlength="9" type="text" ng-model="address.zipCode" required/>
+                        <span class="error" ng-show="addressForm.zipCode.$error.required">*</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>
+            <button ng-click="ok()" type="button" ng-disable="addressForm.$invalid"
+                    class="btn btn-primary">Add Address</button>
+        </div>

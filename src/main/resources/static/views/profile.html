@@ -1,0 +1,82 @@
+<div class="navbar navbar-default col-lg-12" style="padding: 0 0 18px 0;" ng-controller="InformationUserController">
+    <table class="col-lg-12">
+        <tr>
+            <td class="col-lg-3">
+                <figure style="margin-top:18px;">
+                    <img ng-show="!user.picture" src="./images/default-user-icon-profile.png" alt="" class="img-circle img-responsive">
+                    <img ng-show="user.picture" src="{{user.picture}}" alt="" class="img-circle img-responsive">
+                </figure>
+            </td>
+            <td class="col-lg-3">
+                <h3>{{user.username}}</h3>
+                <p>{{user.degree}}</p>
+                <p><img src="../images/estrelaCinza.png"><img src="../images/estrelaCinza.png"><img src="../images/estrelaCinza.png"><img src="../images/estrelaCinza.png"><img src="../images/estrelaCinza.png"></p>
+            </td>
+            <td class="col-lg-6">
+                <h3 class="col-lg-6">0pts</h3>
+                <p class="col-lg-6">0 ajudou</p>
+                <p class="col-lg-6">0 foi ajudado</p>
+            </td>
+        </tr>
+    </table>
+    <a class="float-right" style="margin-right:15px;color:#17393F" href="#/editUser"><span class="glyphicon glyphicon-pencil"></span></a>
+</div>
+
+<div ng-controller="PerfilController">
+    <button class="btn btn-primary col-lg-6 float-left" style="width:49%;" ng-click="divConhecimentos = true;divComentarios = false;">Conhecimentos</button>
+    <button class="btn btn-primary col-lg-6 float-right" style="width:49%;" ng-click="divComentarios = true;divConhecimentos = false;">Comentários</button>
+
+    <div class="navbar navbar-default col-lg-12" style="margin-top:18px;padding-bottom:18px;" id="DivConhecimentos" ng-show="divConhecimentos">
+
+        <div id="newKnowledge" ng-hide="hideKnowledge">
+            <form ng-submit="addKnowledge(formKnowledge)">
+                <div  class="modal-body form-group">
+                    <div class="form-group">
+                        <label>Conhecimento</label>
+                        <input type="text" id="knowledge" ng-model="formKnowledge.knowledge" placeholder="Conhecimento" typeahead="c as c.name for c in areas | filter:$viewValue" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <script type="text/ng-template" id="customTemplate.html">
+                            <a>
+                                <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+                                <i>({{match.model.degree.name}})</i>
+                            </a>
+                        </script>
+                    </div>
+                    <label>Disciplina</label>
+                    <input type="text" id="subject" name="subject" ng-model="formKnowledge.subject" placeholder="Relacione com uma disciplina" typeahead="c as c.name for c in subjects | filter:$viewValue" typeahead-min-length='1' typeahead-on-select='onSelectPart($item, $model, $label)' typeahead-template-url="customTemplate.html" class="form-control">
+                    <br />
+                    <button title="Adicionar conhecimento" type="submit" class="glyphicon glyphicon-plus float-left btn-primary" style="border-radius:100%;border: 0;padding: 5px 5px 5px 5px;"></button>
+
+                </div>
+
+                <div class="modal-footer">
+                </div>
+            </form>
+
+            <div class="form-group">
+                <label>Seus conhecimento</label>
+            </div>
+
+            <div class="col-lg-6" ng-repeat="knowledge in knowledges">
+                <div ng-controller="searchController" class="card" style="background-color:#ffffff;border-radius: 4px;" z-default='20' z-hover='50'>
+                    <table>
+                        <tr>
+                            <td class="col-lg-11">
+                                {{knowledge.name}}
+                            </td>
+                            <td class="col-lg-1">
+                                <a href="" class="float-right" ng-click="deleteKnowledge(knowledge)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DivComentarios" ng-show="divComentarios">
+    Teste
+</div>

@@ -1,0 +1,20 @@
+<div class="col-lg-6" ng-repeat="globalAsk in globalHelp">
+    <div ng-controller="searchController" class="card" style="background-color:#ffffff;border-radius: 4px;" z-default='20' z-hover='50'>
+        <table>
+            <tr>
+                <td>
+                    <img ng-show="!globalAsk.user.picturePath" src="./images/default-user-icon-profile.png" alt="" class="img-circle col-lg-12" style="padding: 0 0 0 0;">
+                    <img ng-show="globalAsk.user.picturePath" src="{{globalAsk.user.picturePath}}" alt="" class="img-circle col-lg-12" style="padding: 0 0 0 0;">
+                </td>
+                <td class="col-lg-8">
+                    <p style="font-size:12px;">{{globalAsk.user.name}}</p>
+                    <p style="font-size:12px;">{{globalAsk.title}}</p>
+                    <p style="font-size:12px;">{{globalAsk.description}}</p>
+                </td>
+                <td class="col-lg-2">
+                    <a class="knowledge" title="Ajudar esta pessoa" ng-click="askHelp(globalAsk)" style="cursor:pointer;"><span><img src="../images/ajudar.png" style="width:22px;height:22px;margin-left:8px;"/></span></a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

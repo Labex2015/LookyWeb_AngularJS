@@ -1,0 +1,27 @@
+<div class="modal-totally" id="modal">
+    <div class="modal-header">
+        <h3>Finalizando a interação com <span class="label label-primary">{{nameHelper}}</span></h3>
+    </div>
+     <div  class="modal-body">
+
+        <h3>Avalie o nível da ajuda?</h3>
+        <div class="container">
+            <div star-rating ng-model="rating1" max="5"></div>
+        </div>
+
+         <h3>Avalie o grau de conhecimento do ajudante?</h3>
+        <div class="container">
+            <div star-rating-two ng-model="rating2" max="5"></div>
+        </div>
+         <h3>Escreva um comentário sobre o ajudante</h3>
+         <div>
+             <textarea class="form-control" id="comment" rows="5" my-maxlength="5" ng-model="textareaText"></textarea>
+         </div>
+
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-primary"  ng-click="rateFunction()">OK</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+</div>

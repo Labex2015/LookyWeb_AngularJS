@@ -1,0 +1,27 @@
+<div ng-controller="HelperController" class="container">
+    <div  class="panel panel-default col-lg-10" style="background-image: url(./images/{{image}});">
+        <div class="panel-body col-lg-12">
+            <div class="col-lg-12">
+                <div class="input-group">
+                    <input type="text" ng-model="search" class="form-control" ng-change="searchHelpers()" placeholder="Search for...">
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" ng-click="searchHelpers()">Go!</button>
+                      </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-10 panel-default" ng-repeat="user in usuarios | filter:search">
+        <div class="huge">{{user.id}}</div>
+        <div>{{user.name}}</div>
+        <a href="" ng-click="openProfile(user)">
+            <div class="panel-footer">
+                <span class="pull-left"><b>Visualizar</b></span>
+                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                <div class="clearfix"></div>
+            </div>
+        </a>
+    </div>
+
+</div>

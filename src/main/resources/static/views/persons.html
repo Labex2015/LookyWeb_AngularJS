@@ -1,0 +1,89 @@
+<div ng-controller="PersonController" class="container">
+    <div>
+        <form id="personForm" class="form">
+            <div class="form-group  col-md-4 col-md-offset-4">
+                <label for="exampleInputName">Name</label>
+                <input type="text" class="form-control" id="exampleInputName"
+                       ng-model="person.name"  placeholder="Enter name">
+            </div>
+            <div class="form-group col-md-4 col-md-offset-4">
+                <label for="exampleInputLastName">Lastname</label>
+                <input type="text" class="form-control" id="exampleInputLastName"
+                       ng-model="person.lastname"  placeholder="Enter email">
+            </div>
+            <div class="form-group  col-md-4 col-md-offset-4">
+                <label for="exampleInputBirthDate">Birth date</label>
+                <p class="input-group">
+                  <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" is-open="opened"
+                         id="exampleInputBirthDate" ng-model="person.birthDate" ng-required="true"
+                         datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="openCalendar($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </p>
+            </div>
+            <div class="form-group col-md-4 col-md-offset-4">
+                <label for="exampleInputOccupation">Occupation</label>
+                <input type="text" class="form-control" id="exampleInputOccupation"
+                       ng-model="person.occupation"  placeholder="Enter occupation">
+            </div>
+            <div class="form-group col-md-4 col-md-offset-4">
+                <label for="exampleInputCPF">CPF</label>
+                <input type="text" class="form-control" id="exampleInputCPF"
+                       ng-model="person.cpf"  placeholder="Enter CPF">
+                <label for="exampleInputRG col-md-4 col-md-offset-4">RG</label>
+                <input type="text" class="form-control" id="exampleInputRG"
+                       ng-model="person.rg"  placeholder="Enter RG">
+            </div>
+            <div class="form-group col-md-4 col-md-offset-4">
+                <label for="exampleInputEmail">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail"
+                       ng-model="person.email" placeholder="Enter email">
+            </div>
+            <div class="form-group col-md-4 col-md-offset-4">
+                <button class="btn btn-default" ng-click="open({})">New Address!</button>
+            </div>
+            <table class="table  table-striped" ng-show="addresses.length > 0 ">
+                <tr><th>#</th><th>Address</th><th>District</th><th>Zip Code</th><th></th></tr>
+                <tr ng-repeat="ad in addresses">
+                    <td>{{ad.id}}</td>
+                    <td>{{ad.streetAddress}}</td>
+                    <td>{{ad.district}}</td>
+                    <td>{{ad.zipCode}}</td><td>
+                    <a id="link-2" href="" ng-click="loadAddress(ad)">Editar</a>
+                    / <a id="link-1" href="" ng-click="removeAddress(ad)">Remover</a>
+                </td>
+                </tr>
+            </table>
+            <div class="form-group">
+                <phone-directive phones="phones"/>
+            </div>
+            <div class="form-group">
+                <div  class="col-sm-9">
+                    <groups-directive groups-out="groups" id-person="person.id"/>
+                </div>
+            </div>
+            <button type="button" class="btn btn-default  col-md-4 col-md-offset-4" ng-click="save()">Save</button>
+        </form>
+        <div id="tableContainer">
+            <table class="table  table-striped table-hover">
+                <tr>
+                    <th>#</th><th>Name</th>
+                    <th>Lastname</th><th>CPF</th><th></th>
+                </tr>
+                <tr ng-repeat="pers in persons">
+                    <td>{{pers.id}}</td>
+                    <td>{{pers.name}}</td>
+                    <td>{{pers.lastname}}</td>
+                    <td>{{pers.cpf}}</td>
+                    <td>
+                        <a id="link-2" href="" ng-click="loadPerson(pers.id)">Editar</a>
+                        / <a id="link-1" href="" ng-click="deleteCompany(pers.id)">Remover</a>
+                    </td>
+
+
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

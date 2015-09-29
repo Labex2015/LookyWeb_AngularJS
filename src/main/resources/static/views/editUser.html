@@ -1,0 +1,38 @@
+<div class="navbar navbar-default col-lg-12" style="padding: 0 0 18px 0;">
+    <form ng-submit="editingUser">
+        <table class="col-lg-12">
+            <h2 class="text-center">Editando usuário</h2>
+            <tr>
+                <td class="col-lg-3">
+                    <figure>
+                        <img ng-show="!user.picture" src="./images/default-user-icon-profile.png" alt="" class="img-circle img-responsive">
+                        <img ng-show="user.picture" src="./images/{{user.picture}}" alt="" class="img-circle img-responsive">
+                    </figure>
+                </td>
+                <td class="col-lg-8">
+                    <div class="margin-top">
+                        <label>Nome:</label>
+                        <input type="text" class="form-control" value="Cássio"/>
+                    </div>
+                    <div class="margin-top">
+                        <label>Username:</label>
+                        <input type="text" class="form-control" value="Cássiooooo"/>
+                    </div>
+                    <div class="margin-top">
+                        <label>E-mail:</label>
+                        <input type="text" class="form-control" value="wollmann.cassio@gmail.com"/>
+                    </div>
+                    <div class="margin-top">
+                        <label>Curso:</label>
+                        <input type="text" class="form-control" value="Sistemas de Informação"/>
+                    </div>
+                    <hr />
+                    <button class="btn btn-primary" type="submit">Salvar</button>
+                    <a class="btn btn-primary" href="#/profile">Cancelar</a>
+                </td>
+                <td class="col-lg-1">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

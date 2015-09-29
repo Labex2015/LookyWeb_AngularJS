@@ -1,0 +1,21 @@
+<div class="navbar navbar-default col-lg-12" style="padding: 0 0 18px 0;">
+    <table class="col-lg-12">
+        <tr>
+            <td class="col-lg-3">
+                <figure style="margin-top:18px;">
+                    <img ng-show="!user.picture" src="./images/default-user-icon-profile.png" alt="" class="img-circle img-responsive">
+                    <img ng-show="user.picture" src="./images/{{user.picture}}" alt="" class="img-circle img-responsive">
+                </figure>
+            </td>
+            <td class="col-lg-3">
+                <h3>{{userHelper}}
+            </td>
+            <td class="col-lg-6">
+                <h3 class="col-lg-6">300pts</h3>
+                <p class="col-lg-6">100 ajudou</p>
+                <p class="col-lg-6">5 foi ajudado</p>
+            </td>
+        </tr>
+    </table>
+    <a class="float-right" style="margin-right:15px;color:#17393F" href="#/editUser"><span class="glyphicon glyphicon-pencil"></span></a>
+</div>

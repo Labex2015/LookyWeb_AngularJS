@@ -1,0 +1,107 @@
+<div ng-controller="MainController">
+    <div>
+        <br/><br/><br/>
+        Exibir formulário: <input type="checkbox" ng-model="checked"><br/>
+        <div id="add-task-panel" class="fadein fadeout addpanel panel" ng-show="checked || callForm">
+            <div class="panel-heading">
+                <i class="panel-title-icon fa fa-plus"></i>
+                <span class="panel-title">Add Company</span>
+            </div>
+            <form name="companyForm" class="form-horizontal" role="form" novalidate>
+                <div class="panel-body">
+                        <alert ng-if="status" type="alertType">{{message}}</alert>
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">Nome:</label>
+                            <div class="col-sm-9">
+                                <input id="name" class="form-control" name="name" type="text" ng-model="company.name" required />
+                                <span class="error" ng-show="companyForm.name.$error.required">*</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="juridicName" class="col-sm-2 control-label">Razão Social:</label>
+                            <div  class="col-sm-9">
+                                <input id="juridicName" class="form-control" name="juridicName" type="text" ng-model="company.juridicName" required/>
+                                <span class="error" ng-show="companyForm.juridicName.$error.required">*</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cnpj" class="col-sm-2 control-label">CNPJ:</label>
+                            <div  class="col-sm-9">
+                                <input id="cnpj" class="form-control" name="cnpj" type="text" ng-model="company.cnpj" required/>
+                                <span class="error" ng-show="companyForm.cnpj.$error.required">*</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ie" class="col-sm-2 control-label">I.Estadual:</label>
+                            <div  class="col-sm-9">
+                                <input id="ie" name="ie" class="form-control" type="text" ng-model="company.ie"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-default" ng-click="open({})">New Address!</button>
+                        </div>
+
+                        <table class="table  table-striped">
+                            <tr><th>#</th><th>Address</th><th>District</th><th>Zip Code</th><th></th></tr>
+                            <tr ng-repeat="ad in addresses">
+                                <td>{{ad.id}}</td>
+                                <td>{{ad.streetAddress}}</td>
+                                <td>{{ad.district}}</td>
+                                <td>{{ad.zipCode}}</td><td>
+                                  <a id="link-2" href="" ng-click="loadAddress(ad)">Editar</a>
+                                   / <a id="link-1" href="" ng-click="removeAddress(ad)">Remover</a>
+                                </td>
+                            </tr>
+                        </table>
+
+
+
+                        <div class="form-group">
+                            <label for="email" class="col-sm-2 control-label">e-Mail:</label>
+                            <div  class="col-sm-9">
+                                <input id="email" name="email" type="email" ng-model="company.email" ng-minlength="5" required/>
+                                <span class="error" ng-show="companyForm.email.$error.required">*</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="col-sm-2 control-label">Telefone:</label>
+                            <div  class="col-sm-9">
+                                <input id="phone" maxlength="15" type="text" ng-model="phone.number" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div  class="col-sm-9">
+                                <groups-directive  groups-out="groups"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-9">
+                                <button ng-disable="companyForm.$invalid"
+                                        ng-click="save()" type="button" class="btn btn-primary  btn-lg">Salvar</button>
+                            </div>
+                        </div>
+                </div>
+
+            </form>
+        </div>
+        <div id="tableContainer">
+        <table class="table  table-striped">
+            <tr><th>#</th><th>Company</th><th>CNPJ</th><th>IE</th><th></th></tr>
+            <tr ng-repeat="comp in companies">
+                <td>{{comp.id}}</td>
+                <td>{{comp.name}}</td>
+                <td>{{comp.cnpj}}</td>
+                <td>{{comp.ie}}</td>
+                <td>
+                    <a id="link-2" href="" ng-click="loadCompany(comp.id)">Editar</a>
+                    / <a id="link-1" href="" ng-click="deleteCompany(comp.id)">Remover</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    </div>
+    <script type="text/ng-template" id="myModalContent.html">
+        <ng-include src="'./views/addressform.html'"></ng-include>
+    </script>
+
+</div>

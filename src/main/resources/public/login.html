@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html ng-app="mainApp">
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Looky Web</title>
+    <link href="./css/bootstrap.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+    <link href="./css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./css/default.css" />
+    <link rel="stylesheet" type="text/css" href="./css/component.css" />
+    <link rel="icon" href="./images/logo32.png" type="image/x-icon" sizes="32x32"/>
+    <link rel="stylesheet" href="./css/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script data-require="angular.js@*" src="https://code.angularjs.org/1.4.6/angular.js"></script>
+    <script type="text/javascript" src="https://code.angularjs.org/1.4.6/angular-cookies.js"></script>
+    <script type="text/javascript" src="http://192.168.1.101:3000/socket.io/socket.io.js"></script>
+
+</head>
+<body>
+
+<div class="container">
+    <div class="row" ng-controller="searchController">
+        <div class="col-lg-12 top">
+            <div class="col-lg-2" ng-controller="InteractionsController">
+                <a class="menu-btn" style="color:white;" id="showLeft" ng-init="userInteractionPending()">&#9776;<span>{{interactionsPending.length}}</span></a>
+            </div>
+
+            <div class="col-lg-8 text-center">
+                <form ng-submit="search(formQuery)">
+                    <table class="">
+                        <tr>
+                            <td class="col-lg-6">
+                                <input type="text" class="form-control text-center col-lg-12"  style="margin-top:10px;" name="subject" ng-model="formQuery.knowledge" placeholder="Conhecimento">
+                            </td>
+                            <td class="col-lg-2">
+                                <select class="form-control text-center col-lg-12" style="margin-top:10px;" id="degree" name="degree" ng-model="formQuery.degree">
+                                    <option value="0">Todas</option>
+                                    <option ng-repeat="degree in degrees | orderBy:name"
+                                            value="{{degree.id_degree}}">{{degree.name}}</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                    <button type="submit" class="" ng-click="loading = false" onclick="window.location.href='#/search';" style="height: 0px; width: 0px; border: none; padding: 0px;"></button>
+                </form>
+            </div>
+        </div>
+
+        <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left cbp-spmenu-open navbar navbar-default col-lg-2 menpuLeft" id="cbp-spmenu-s1"  style="margin-top:14px;">
+            <div class="" style="margin-top:18px;" ng-controller="InformationUserController">
+                <figure style="margin-top:5px;text-align:center">
+                    <img style="width:120px;height:120px;" ng-show="!user.picture" src="./images/default-user-icon-profile.png" alt="" class="img-circle">
+                    <img style="width:120px;height:120px;" ng-show="user.picture" src="{{user.picture}}" alt="" class="img-circle">
+                    <br />
+                </figure>
+            </div>
+            <div class="text-center" style="margin-top:18px;" ng-controller="InformationUserController">
+                <p>{{user.username}}</p>
+                <p style="font-size:14px;">{{user.degree}}</p>
+                <hr />
+            </div>
+            <div class="accordion" id="leftMenu" ng-controller="InteractionsController" ng-init="userInteractionPending()">
+                <div class="accordion-group" style="margin-bottom:18px">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#leftMenu" href="#/">
+                            <img src="../images/logo.png" style="width:22px;height:22px;margin-left:8px;"/><span style="margin-left:18px;">Inicio</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="accordion-group" style="margin-bottom:18px">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#leftMenu" href="#/profile">
+                            <img src="../images/perfil.png" style="width:22px;height:22px;margin-left:8px;"/><span style="margin-left:18px;">Perfil</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="accordion-group" style="margin-bottom:18px">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#leftMenu" href="#/waitingHelper">
+                            <img src="../images/ajudar.png" style="width:22px;height:22px;margin-left:8px;"/><span style="margin-left:18px;">Ajudar</span><span class="spanAlert">{{interactionsPendingUserHelper.length}}</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="accordion-group" style="margin-bottom:18px">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#leftMenu" href="#/globalHelp">
+                            <img src="../images/global.png" style="width:22px;height:22px;margin-left:8px;"/><span style="margin-left:18px;">Ajudas globais</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="accordion-group" style="margin-bottom:18px">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#leftMenu" href="#/collapseSix">
+                            <img src="../images/conversas.png" style="width:22px;height:22px;margin-left:8px;"/><span style="margin-left:18px;">Conversas</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="accordion-group" style="margin-bottom:18px">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#leftMenu" ng-click="openInteractionsPending()" href="">
+                            <img src="../images/pendencies.png" style="width:22px;height:22px;margin-left:8px;"/><span style="margin-left:18px;">Pendências</span><span class="spanAlert">{{interactionsPending.length}}</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="accordion-group" style="margin-bottom:18px">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#leftMenu" href="#collapseSix">
+                            <img src="../images/sobre.png" style="width:22px;height:22px;margin-left:8px;"/><span style="margin-left:18px;">Sobre</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="accordion-group" style="margin-bottom:18px">
+                    <div class="accordion-heading" ng-controller="LoginController" ng-click="logout()">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#leftMenu">
+                            <img src="../images/sobre.png" style="width:22px;height:22px;margin-left:8px;"/><span style="margin-left:18px;">Log Out</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="col-lg-8" style="margin-top:14px;">
+            <div class="col-lg-12">
+
+                <div ng-view></div>
+
+            </div>
+            <div class="col-lg-2 fixed navbar navbar-default" style="padding-bottom: 10px;" ng-controller="InteractionsController" ng-init="userInteractions()">
+
+                <div>
+
+                    <div class="btn btn-primary col-lg-5 right-menu-btn" id="showDivAjudando">Ajudando<span>{{interactionsUserIsHelper.length}}</span></div>
+                    <div class="col-lg-1"></div>
+                    <div class="btn btn-primary col-lg-5 right-menu-btn" id="showDivAjudas">Ajudas<span>{{interactionsUserIsRequested.length}}</span></div>
+                    <div class="fixed2 mCustomScrollbar" id="divAjudando" style="overflow: auto; width: 100%;">
+                        <div ng-repeat="interaction in interactionsUserIsHelper">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#leftMenu" href="#/chat">
+                                <table style="margin-top: 16px;">
+                                    <tr>
+                                        <td class="col-lg-2" style="cursor:pointer;text-align:left; padding:0 0 0 0;">
+                                            <img ng-show="!interaction.requestHelp.requester.picturePath" src="./images/default-user-icon-profile.png" alt="" ng-click="registerWindow(interaction)" class="img-circle img-responsive">
+                                            <img ng-show="interaction.requestHelp.requester.picturePath" src="{{interaction.requestHelp.requester.picturePath}}" alt="" ng-click="registerWindow(interaction)" class="img-circle img-responsive">
+                                        </td>
+                                        <td class="col-lg-8" style="cursor:pointer;text-align:left; padding:0 0 0 16px; font-size:14px;" ng-click="registerWindow(interaction)">
+                                            {{interaction.requestHelp.requester.name}}
+                                        </td>
+                            </a>
+                                        <td class="col-lg-2" style="cursor:pointer;text-align:left; padding:0 0 0 16px;"  ng-click="helperCloseInteraction(interaction)" aria-hidden="true">
+                                            <img src="./images/x.png">
+                                        </td>
+                                    </tr>
+                                </table>
+
+                        </div>
+                    </div>
+
+                    <div class="fixed2 mCustomScrollbar" id="divAjudas" style="overflow: auto; width: 100%;">
+                        <div ng-repeat="interaction in interactionsUserIsRequested">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#leftMenu" href="#/chat">
+                                <table style="margin-top:16px;">
+                                    <tr>
+                                        <td class="col-lg-2" style="cursor:pointer;text-align:left; padding:0 0 0 0;">
+                                            <img ng-show="!user.picture" src="./images/default-user-icon-profile.png" alt="" ng-click="registerWindow(interaction)" class="img-circle img-responsive"/>
+                                            <img ng-show="user.picture" src="{{user.picture}}" alt="" ng-click="registerWindow(interaction)" class="img-circle img-responsive"/>
+                                        </td>
+                                        <td class="col-lg-8" style="cursor:pointer;text-align:left; padding:0 0 0 16px; font-size:14px;" ng-click="registerWindow(interaction)">
+                                            {{interaction.requestHelp.helper.name}}
+                                        </td>
+                            </a>
+                                        <td class="col-lg-2" style="cursor:pointer;text-align:left; padding:0 0 0 16px;" ng-click="openAvaliation(interaction, $index, 'avaliation')" aria-hidden="true">
+                                            <img src="./images/x.png">
+                                        </td>
+                                    </tr>
+                                </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+        var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+            menuRight = document.getElementById( 'cbp-spmenu-s2' );
+
+        showLeft.onclick = function() {
+            classie.toggle( this, 'active' );
+            classie.toggle( menuLeft, 'cbp-spmenu-open' );
+        };
+
+        (function($){
+            $(window).load(function(){
+                $(".content").mCustomScrollbar();
+            });
+        })(jQuery);
+
+        $(".content").mCustomScrollbar({
+            axis:"x"
+        });
+
+        $(".content").mCustomScrollbar({
+            theme:"dark"
+        });
+</script>
+
+<script type="text/javascript" src="./js/ui-bootstrap-tpls-0.12.1.js"></script>
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="./js/main.js"></script>
+<script type="text/javascript" src="./js/angular-route.js"></script>
+<script type="text/javascript" src="./js/jquery.confirm.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script type="text/javascript" src="./js/helper.js"></script>
+<script type="text/javascript" src="./js/users_profile.js"></script>
+<script type="text/javascript" src="./js/interaction.js"></script>
+<script type="text/javascript" src="./js/close.js"></script>
+<script type="text/javascript" src="./js/global.js"></script>
+<script type="text/javascript" src="./js/perfilController.js"></script>
+<script type="text/javascript" src="./js/jsNavRight.js"></script>
+<script type="text/javascript" src="./js/globalHelp.js"></script>
+<script type="text/javascript" src="./js/users.js"></script>
+<script type="text/javascript" src="./js/login.js"></script>
+<script type="text/javascript" src="./js/chat.js"></script>
+<script type="text/javascript" src="./js/informationUser.js"></script>
+<script type="text/javascript" src="./js/search.js"></script>
+<script type="text/javascript" src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="js/classie.js"></script>
+<script src="js/modernizr.custom.js"></script>
+
+
+</body>
+</html>
